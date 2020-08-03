@@ -2,38 +2,147 @@ package game_2048;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Stack;
 import java.util.StringTokenizer;
 
 public class Main {
 	
-	public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	public static int[][] map;
-	public static int[] X = new int[] { 1, 0, -1, 0 }; // 시계방향
-	public static int[] Y = new int[] { 0, 1, 0, -1 };
-	public static StringTokenizer st;
+	static int n; 
+	static int max=0;
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println("입력 : ");
-		int input = new Integer(br.readLine());
-		System.out.println("input : " + input);
-		map = new int[input][input];
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
+		StringTokenizer st = new StringTokenizer(br.readLine(),""); 
+		n = Integer.parseInt(st.nextToken()); 
+		int[][] map = new int[n][n];
 		
-		for (int i = 0; i < input; i++) {
-			st = new StringTokenizer(br.readLine()," ");
-			for (int j = 0; j < input; j++) {
-				map[i][j] = Integer.parseInt(st.nextToken());
-			}
-		}
+		for(int i=0;i<n;i++) { 
+		st = new StringTokenizer(br.readLine()," ");		
+		int idx = 0; 
 		
-		// map확인
-		for (int i = 0; i < input; i++) {
-			for (int j = 0; j < input; j++) {
-				System.out.print(map[i][j]);
-			}
-			System.out.println();
-		}
+		while(st.hasMoreTokens()) { 
+			map[i][idx] = Integer.parseInt(st.nextToken()); 
+			idx+=1; 
+			} 
+		} 
 		
-		// 최대 5회로 가장 큰수 찾기
-		
+		dfs(0,map); 
+		System.out.println(max);
 	}
+	
+	public static void dfs(int cnt, int[][] map) {
+		
+		if(cnt == 5) {
+			return;
+		}
+		int[][] map2 = new int[n][n];
+		
+		// 상
+		for (int i = 0; i < n; i++) {
+			Stack<Integer> s = new Stack<Integer>();
+			for (int j = n-1; j >= 0; j--) {
+				if(map[j][i] == 0)
+					continue;
+				s.add(map[j][i]);
+			}
+			int idx = 0;
+			while(!s.isEmpty()) {
+				int t = s.pop();
+				if(s.size() > 0 && t == s.peek()) {
+					map2[idx][i] = 2*t;
+					s.pop();
+					if(max < 2*t)
+						max = 2*t;
+				} else {
+					map2[idx][i] = t;
+					if(max < t)
+						max = t;
+				}
+				idx++;
+			}
+		}
+		dfs(cnt+1, map2);
+		
+		// 하
+		map2 = new int[n][n];
+		for (int i = 0; i < n; i++) {
+			Stack<Integer> s = new Stack<Integer>();
+			for (int j = 0; j < n; j++) {
+				if(map[j][i] == 0)
+					continue;
+				s.add(map[j][i]);
+			}
+			int idx = n-1;
+			while(!s.isEmpty()) {
+				int t = s.pop();
+				if(s.size() > 0 && t == s.peek()) {
+					map2[idx][i] = 2*t;
+					s.pop();
+					if(max < 2*t)
+						max = 2*t;
+				} else {
+					map2[idx][i] = t;
+					if(max < t)
+						max = t;
+				}
+				idx--;
+			}
+		}
+		dfs(cnt+1, map2);
+		
+		// 좌
+		map2 = new int[n][n];
+		for (int i = 0; i < n; i++) {
+			Stack<Integer> s = new Stack<Integer>();
+			for (int j = n-1; j >= 0; j--) {
+				if(map[i][j] == 0)
+					continue;
+				s.add(map[i][j]);
+			}
+			int idx = 0;
+			while(!s.isEmpty()) {
+				int t = s.pop();
+				if(s.size() > 0 && t == s.peek()) {
+					map2[i][idx] = 2*t;
+					s.pop();
+					if(max < 2*t)
+						max = 2*t;
+				} else {
+					map2[i][idx] = t;
+					if(max < t)
+						max = t;
+				}
+				idx++;
+			}
+		}
+		dfs(cnt+1, map2);
+		
+		// 우
+		map2 = new int[n][n];
+		for (int i = 0; i < n; i++) {
+			Stack<Integer> s = new Stack<Integer>();
+			for (int j = 0; j < n; j++) {
+				if(map[i][j] == 0)
+					continue;
+				s.add(map[i][j]);
+			}
+			int idx = n-1;
+			while(!s.isEmpty()) {
+				int t = s.pop();
+				if(s.size() > 0 && t == s.peek()) {
+					map2[i][idx] = 2*t;
+					s.pop();
+					if(max < 2*t)
+						max = 2*t;
+				} else {
+					map2[i][idx] = t;
+					if(max < t)
+						max = t;
+				}
+				idx--;
+			}
+		}
+		dfs(cnt+1, map2);
+	}
+	
 }
