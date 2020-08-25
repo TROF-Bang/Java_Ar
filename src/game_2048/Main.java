@@ -9,16 +9,19 @@ public class Main {
 	
 	static int n; 
 	static int max=0;
+	static Stack<Integer> s = new Stack<Integer>();
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
 		StringTokenizer st = new StringTokenizer(br.readLine(),""); 
 		n = Integer.parseInt(st.nextToken()); 
 		int[][] map = new int[n][n];
+		int idx = 0;
 		
+		// map에 데이터 저장
 		for(int i=0;i<n;i++) { 
 		st = new StringTokenizer(br.readLine()," ");		
-		int idx = 0; 
+		idx = 0; 
 		
 		while(st.hasMoreTokens()) { 
 			map[i][idx] = Integer.parseInt(st.nextToken()); 
@@ -31,15 +34,15 @@ public class Main {
 	}
 	
 	public static void dfs(int cnt, int[][] map) {
-		
+		// 5회를 초과할시 함수에서 나가는 코드
 		if(cnt == 5) {
 			return;
 		}
 		int[][] map2 = new int[n][n];
 		
-		// ��
+		// 방향키 위쪽
 		for (int i = 0; i < n; i++) {
-			Stack<Integer> s = new Stack<Integer>();
+
 			for (int j = n-1; j >= 0; j--) {
 				if(map[j][i] == 0)
 					continue;
@@ -63,10 +66,10 @@ public class Main {
 		}
 		dfs(cnt+1, map2);
 		
-		// ��
+		// 방향키 밑으로
 		map2 = new int[n][n];
 		for (int i = 0; i < n; i++) {
-			Stack<Integer> s = new Stack<Integer>();
+
 			for (int j = 0; j < n; j++) {
 				if(map[j][i] == 0)
 					continue;
@@ -90,10 +93,10 @@ public class Main {
 		}
 		dfs(cnt+1, map2);
 		
-		// ��
+		// 방향키 왼쪽
 		map2 = new int[n][n];
 		for (int i = 0; i < n; i++) {
-			Stack<Integer> s = new Stack<Integer>();
+
 			for (int j = n-1; j >= 0; j--) {
 				if(map[i][j] == 0)
 					continue;
@@ -117,10 +120,10 @@ public class Main {
 		}
 		dfs(cnt+1, map2);
 		
-		// ��
+		// 방향키 오른쪽
 		map2 = new int[n][n];
 		for (int i = 0; i < n; i++) {
-			Stack<Integer> s = new Stack<Integer>();
+
 			for (int j = 0; j < n; j++) {
 				if(map[i][j] == 0)
 					continue;

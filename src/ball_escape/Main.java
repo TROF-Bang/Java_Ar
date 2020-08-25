@@ -11,14 +11,14 @@ import java.util.StringTokenizer;
 public class Main {
 
 	public static char map[][];
-	public static int[] X = new int[] { 1, 0, -1, 0 }; // ½Ã°è¹æÇâ
+	public static int[] X = new int[] { 1, 0, -1, 0 }; // ì‹œê³„ë°©í–¥
 	public static int[] Y = new int[] { 0, 1, 0, -1 };
 	public static Queue<Balls> ballAddrs = new LinkedList<Balls>();
 	public static HashSet<String> check = new HashSet<String>();
 	public static String RBCheak;
 	
 	public static void main(String[] args) throws Exception {
-		System.out.println("ÀÔ·Â : ");
+		System.out.println("ì…ë ¥ : ");
 		BufferedReader bis = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(bis.readLine());
 		
@@ -30,7 +30,7 @@ public class Main {
 		
 		map = new char[n][m];
 		Balls balls = new Balls();
-		// map ¼³Á¤
+		// map ì„¤ì •
 		for (int i = 0; i < n; i++) {
 			String str = bis.readLine();
 			for (int j = 0; j < m; j++) {
@@ -50,7 +50,7 @@ public class Main {
 		ballAddrs.offer(balls);
 		System.out.println("RBCheak : " + RBCheak);
 		check.add(RBCheak);
-		// map È®ÀÎ ÄÚµå
+		// map í™•ì¸ ì½”ë“œ
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < m; j++) {
 				System.out.print(map[i][j]);
@@ -58,9 +58,9 @@ public class Main {
 			System.out.println();
 		}
 		
-		System.out.println("È½¼ö : " + search());
-		System.out.println("check »çÀÌÁî : " + check.size());
-		System.out.println("Å¥ »çÀÌÁî : " + ballAddrs.size());
+		System.out.println("íšŸìˆ˜ : " + search());
+		System.out.println("check ì‚¬ì´ì¦ˆ : " + check.size());
+		System.out.println("í ì‚¬ì´ì¦ˆ : " + ballAddrs.size());
 	}
 
 	private static int search() {
@@ -71,15 +71,15 @@ public class Main {
 		
 		while(!ballAddrs.isEmpty()) {
 			Balls balls = ballAddrs.poll();
-			// È½¼ö Ãß°¡
+			// íšŸìˆ˜ ì¶”ê°€
 			balls.count += 1;
-			// È½¼ö°¡ 10È¸¸¦ ÃÊ°úÇÒ½Ã ¹«ÇÑ·çÇÁ Å»Ãâ 
+			// íšŸìˆ˜ê°€ 10íšŒë¥¼ ì´ˆê³¼í• ì‹œ ë¬´í•œë£¨í”„ íƒˆì¶œ 
 			if(balls.count > 10) {
 				break;
 			}
-			// ±¸½½À» ½Ã°è ¹æÇâÀ¸·Î ±¼¸°´Ù.
+			// êµ¬ìŠ¬ì„ ì‹œê³„ ë°©í–¥ìœ¼ë¡œ êµ´ë¦°ë‹¤.
 			for (int i = 0; i < 4; i++) {
-				// º¼ À§Ä¡ ÃÊ±âÈ­
+				// ë³¼ ìœ„ì¹˜ ì´ˆê¸°í™”
 				RRow = balls.RAddr[0];
 				RCol = balls.RAddr[1];
 				BRow = balls.BAddr[0];
@@ -88,7 +88,7 @@ public class Main {
 				int Rcount = 0;
 				boolean BallCheak = false;
 				
-				// »¡°£±¸½½
+				// ë¹¨ê°„êµ¬ìŠ¬
 				while(map[RRow - X[i]][RCol + Y[i]] != '#') {
 					RRow -= X[i];
 					RCol += Y[i];
@@ -98,7 +98,7 @@ public class Main {
 					}
 				}
 				
-				// ÆÄ¶õ±¸½½
+				// íŒŒë€êµ¬ìŠ¬
 				while(map[BRow - X[i]][BCol + Y[i]] != '#') {
 					BRow -= X[i];
 					BCol += Y[i];
@@ -108,16 +108,16 @@ public class Main {
 					}
 				}
 				
-				// ÆÄ¶õ»ö ±¸½½ÀÌ 'O'¿¡ ºüÁ³À¸¸é, °è¼Ó ´ÙÀ½ ÁøÇà
+				// íŒŒë€ìƒ‰ êµ¬ìŠ¬ì´ 'O'ì— ë¹ ì¡Œìœ¼ë©´, ê³„ì† ë‹¤ìŒ ì§„í–‰
 				if(map[BRow][BCol] == 'O') {
 	                 continue;
 				}
-				// »¡°£»ö ±¸½½ÀÌ 'O'¿¡ ºüÁ³À¸¸é Á¤´ä Ãâ·Â
+				// ë¹¨ê°„ìƒ‰ êµ¬ìŠ¬ì´ 'O'ì— ë¹ ì¡Œìœ¼ë©´ ì •ë‹µ ì¶œë ¥
 				if(map[RRow][RCol] == 'O') {
 					return balls.count;
 				}
 				
-				// »¡°£°ø°ú ÆÄ¶õ°øÀÌ °°Àº À§Ä¡¿¡ ÀÖÀ»¶§ Á¶Á¤
+				// ë¹¨ê°„ê³µê³¼ íŒŒë€ê³µì´ ê°™ì€ ìœ„ì¹˜ì— ìˆì„ë•Œ ì¡°ì •
 				if(RRow == BRow && RCol == BCol) {
 					if(i == 0) {
 						if(Rcount > Bcount)
@@ -162,7 +162,7 @@ public class Main {
 	}
 }
 
-	//ÆÄ¶õ±¸½½ »¡°£±¸½½ Å»Ãâ±¸ °´Ã¼
+	//íŒŒë€êµ¬ìŠ¬ ë¹¨ê°„êµ¬ìŠ¬ íƒˆì¶œêµ¬ ê°ì²´
 	class Balls {
 		
 		int[] BAddr = new int[2];

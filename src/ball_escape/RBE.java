@@ -12,12 +12,12 @@ public class RBE {
 	 public static int N, M;
 	 public static char[][] map;
 	 public static boolean[][][][] visited;
-	 public static int[] dirX = new int[] { 0, 0, 1, -1 }; // µ¿¼­³²ºÏ
+	 public static int[] dirX = new int[] { 0, 0, 1, -1 }; // ë™ì„œë‚¨ë¶
 	 public static int[] dirY = new int[] { 1, -1, 0, 0 };
 	 public static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	 
 	 public static void main(String[] args) throws Exception {
-		 System.out.println("ÀÔ·Â : ");
+		 System.out.println("ìž…ë ¥ : ");
 	     StringTokenizer st = new StringTokenizer(br.readLine());
 	     
 	     N = Integer.parseInt(st.nextToken());
@@ -55,16 +55,16 @@ public class RBE {
 	         Node node = q.poll();
 	         visited[node.rRow][node.rCol][node.bRow][node.bCol] = true;
 	 
-	         //11¹ø ÀÌ»ó ±¼·ÈÀ» °æ¿ì -1À» Ãâ·ÂÇÑ´Ù.
+	         //11ë²ˆ ì´ìƒ êµ´ë ¸ì„ ê²½ìš° -1ì„ ì¶œë ¥í•œë‹¤.
 	         if (node.cnt >= 10) {
 	             System.out.println(-1);
 	             return;
 	         }
 	         
-	         //ÇöÀç µÎ ±¸½½ÀÇ À§Ä¡¸¦ ±âÁØÀ¸·Î µ¿,¼­,³²,ºÏ À¸·Î ±¼·Áº»´Ù.
+	         //í˜„ìž¬ ë‘ êµ¬ìŠ¬ì˜ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ ë™,ì„œ,ë‚¨,ë¶ ìœ¼ë¡œ êµ´ë ¤ë³¸ë‹¤.
 	         for (int dir = 0; dir < 4; dir++) {
 	 
-	             //ÆÄ¶õ»ö ±¸½½À» ¸ÕÀú ±¼¸°´Ù.
+	             //íŒŒëž€ìƒ‰ êµ¬ìŠ¬ì„ ë¨¼ì € êµ´ë¦°ë‹¤.
 	             int bnRow = node.bRow;
 	             int bnCol = node.bCol;
 	             while (map[bnRow + dirX[dir]][bnCol + dirY[dir]] != '#') {
@@ -75,7 +75,7 @@ public class RBE {
 	                 }
 	             }
 	             
-	             //±× ´ÙÀ½, »¡°£»ö ±¸½½À» ±¼¸°´Ù.
+	             //ê·¸ ë‹¤ìŒ, ë¹¨ê°„ìƒ‰ êµ¬ìŠ¬ì„ êµ´ë¦°ë‹¤.
 	             int rnRow = node.rRow;
 	             int rnCol = node.rCol;
 	             while (map[rnRow + dirX[dir]][rnCol + dirY[dir]] != '#') {
@@ -86,41 +86,41 @@ public class RBE {
 	                 }
 	             }
 	             
-	             //ÆÄ¶õ»ö ±¸½½ÀÌ 'O'¿¡ ºüÁ³´Ù¸é, Å½»öÀ» ¸ØÃá´Ù.
+	             //íŒŒëž€ìƒ‰ êµ¬ìŠ¬ì´ 'O'ì— ë¹ ì¡Œë‹¤ë©´, íƒìƒ‰ì„ ë©ˆì¶˜ë‹¤.
 	             if (map[bnRow][bnCol] == 'O') {
-	            	 System.out.println("ÆÄ¶õ±¸½½ ºüÁü : " + map[bnRow][bnCol]);
+	            	 System.out.println("íŒŒëž€êµ¬ìŠ¬ ë¹ ì§ : " + map[bnRow][bnCol]);
 	                 continue;
 	             }
-	             //»¡°£»ö ±¸½½¸¸ 'O'¿¡ ºüÁ³´Ù¸é, Á¤´äÀ» Ãâ·ÂÇÑ´Ù.
+	             //ë¹¨ê°„ìƒ‰ êµ¬ìŠ¬ë§Œ 'O'ì— ë¹ ì¡Œë‹¤ë©´, ì •ë‹µì„ ì¶œë ¥í•œë‹¤.
 	             if (map[rnRow][rnCol] == 'O') {
 	                 System.out.println(node.cnt + 1);
 	                 return;
 	             }
 	             
-	             //µÎ ±¸½½ÀÇ À§Ä¡°¡ °°´Ù¸é, À§Ä¡¸¦ Á¶Á¤ÇÑ´Ù.
+	             //ë‘ êµ¬ìŠ¬ì˜ ìœ„ì¹˜ê°€ ê°™ë‹¤ë©´, ìœ„ì¹˜ë¥¼ ì¡°ì •í•œë‹¤.
 	             if (rnRow == bnRow && rnCol == bnCol) {
 	 
 	                 switch (dir) {
 	 
-	                 case 0: // µ¿
+	                 case 0: // ë™
 	                     if (node.rCol > node.bCol)
 	                         bnCol -= 1;
 	                     else
 	                         rnCol -= 1;
 	                     break;
-	                 case 1: // ¼­
+	                 case 1: // ì„œ
 	                     if (node.rCol > node.bCol)
 	                         rnCol += 1;
 	                     else
 	                         bnCol += 1;
 	                     break;
-	                 case 2: // ³²
+	                 case 2: // ë‚¨
 	                     if (node.rRow > node.bRow)
 	                         bnRow -= 1;
 	                     else
 	                         rnRow -= 1;
 	                     break;
-	                 case 3: // ºÏ
+	                 case 3: // ë¶
 	                     if (node.rRow > node.bRow)
 	                         rnRow += 1;
 	                     else
@@ -128,7 +128,7 @@ public class RBE {
 	                     break;
 	                 }
 	             }
-	             //µÎ ±¸½½À» ±¼¸° ÈÄÀÇ °¢°¢ÀÇ À§Ä¡°¡ Ã³À½ Å½»öÇÏ´Â °ÍÀÌ¶ó¸é Å¥¿¡ ³Ö´Â´Ù.
+	             //ë‘ êµ¬ìŠ¬ì„ êµ´ë¦° í›„ì˜ ê°ê°ì˜ ìœ„ì¹˜ê°€ ì²˜ìŒ íƒìƒ‰í•˜ëŠ” ê²ƒì´ë¼ë©´ íì— ë„£ëŠ”ë‹¤.
 	             if (!visited[rnRow][rnCol][bnRow][bnCol]) {
 	                 q.offer(new Node(rnRow, rnCol, bnRow, bnCol, node.cnt + 1));
 	             }
