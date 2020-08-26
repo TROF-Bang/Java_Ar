@@ -10,6 +10,7 @@ public class Main {
 	static int n; 
 	static int max=0;
 	static Stack<Integer> s = new Stack<Integer>();
+	static int count = 0;
 	
 	public static void main(String[] args) throws Exception {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in)); 
@@ -31,11 +32,13 @@ public class Main {
 		
 		dfs(0,map); 
 		System.out.println(max);
+		System.out.println(count);
 	}
 	
 	public static void dfs(int cnt, int[][] map) {
-		// 5회를 초과할시 함수에서 나가는 코드
+		// 최대 5회 까지 이동
 		if(cnt == 5) {
+			count++;
 			return;
 		}
 		int[][] map2 = new int[n][n];
